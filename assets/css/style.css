@@ -220,7 +220,7 @@ p {
   transition: transform 0.2s;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
   .menu-botao {
     display: block;
   }
@@ -298,6 +298,7 @@ p {
   font-size: 0.92rem;
 }
 .selos strong {
+  font-variant-numeric: lining-nums;
   display: block;
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
@@ -684,6 +685,130 @@ p {
   font-weight: 500;
 }
 
+/* Números (faixa escura, contagem animada) */
+.numeros {
+  background: linear-gradient(120deg, var(--cafe-escuro) 0%, #5a3a2b 100%);
+  color: #f7efe7;
+  padding: clamp(36px, 6vw, 56px) 0;
+}
+.numeros__grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.numero svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: #e9cdb5;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin: 0 auto 8px;
+  display: block;
+}
+.numero__valor {
+  margin: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+}
+.numero__rotulo {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e9cdb5;
+}
+@media (max-width: 760px) {
+  .numeros__grade {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 32px;
+  }
+}
+
+/* Como funciona */
+.passos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  counter-reset: passo;
+  position: relative;
+}
+.passos::before {
+  /* linha ligando as etapas (computador) */
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--areia-escura) 0 8px, transparent 8px 14px);
+}
+.passos li {
+  position: relative;
+  text-align: center;
+  padding: 0 8px;
+}
+.passos__n {
+  position: relative;
+  font-variant-numeric: lining-nums;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--creme);
+  border: 2px solid var(--cafe);
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--cafe);
+}
+.passos h3 {
+  font-size: 1.3rem;
+}
+.passos p {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  margin: 0;
+}
+@media (max-width: 860px) {
+  .passos {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  .passos::before {
+    top: 28px;
+    bottom: 28px;
+    left: 27px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: repeating-linear-gradient(180deg, var(--areia-escura) 0 8px, transparent 8px 14px);
+  }
+  .passos li {
+    text-align: left;
+    padding: 0 0 0 76px;
+    min-height: 72px;
+  }
+  .passos__n {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+  }
+}
+
 /* Chamada final */
 .chamada {
   padding: 0 0 clamp(56px, 9vw, 104px);
@@ -707,8 +832,47 @@ p {
 .chamada__caixa .botao {
   margin: 0.8rem 0 1.4rem;
 }
-.chamada__redes a {
+.redes {
+  list-style: none;
+  margin: 0.4rem 0 0.6rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+.redes a {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 0.35);
   color: #fff;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.redes a:hover {
+  background: rgb(255 255 255 / 0.15);
+  transform: translateY(-2px);
+}
+.redes svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.redes svg .cheio {
+  fill: currentColor;
+  stroke: none;
+}
+.chamada__arroba {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin: 0;
 }
 
 /* Rodapé */

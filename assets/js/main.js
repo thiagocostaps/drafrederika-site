@@ -43,8 +43,31 @@
   const ano = document.querySelector("[data-ano]");
   if (ano) ano.textContent = String(new Date().getFullYear());
 
+  // Números: contam de 0 até o valor quando aparecem na tela.
+  const contar = (el) => {
+    const alvo = Number(el.dataset.contar);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const inicio = performance.now();
+    const passo = (t) => {
+      const k = Math.min(1, (t - inicio) / 1400);
+      el.textContent = Math.round(alvo * (1 - Math.pow(1 - k, 3))).toLocaleString("pt-BR");
+      if (k < 1) requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+  };
+
   if ("IntersectionObserver" in window) {
-    const alvos = document.querySelectorAll(".secao__cabecalho, .cartao, .galeria figure, .linha-tempo li, .clinica, .sobre__grade > *");
+    const obsNum = new IntersectionObserver((entradas) =>
+      entradas.forEach((e) => {
+        if (e.isIntersecting) {
+          contar(e.target);
+          obsNum.unobserve(e.target);
+        }
+      }),
+    );
+    document.querySelectorAll("[data-contar]").forEach((el) => obsNum.observe(el));
+
+    const alvos = document.querySelectorAll(".secao__cabecalho, .cartao, .galeria figure, .linha-tempo li, .clinica, .sobre__grade > *, .passos li");
     const obs = new IntersectionObserver(
       (entradas) =>
         entradas.forEach((e) => {
